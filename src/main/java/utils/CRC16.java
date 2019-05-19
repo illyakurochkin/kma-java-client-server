@@ -19,7 +19,7 @@ package utils;
 
 public class CRC16 {
 
-    public static int generateCRC16(byte[] byteArray) {
+    public static int generateCrc16(byte[] byteArray) {
 
         int[] table = {
                 0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
