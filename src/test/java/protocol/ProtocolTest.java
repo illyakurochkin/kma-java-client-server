@@ -27,7 +27,7 @@ public class ProtocolTest {
         byte byteSrc = 1;
         int cType = 0;
         int bUserId = 1;
-        String message = "hello henry";
+        String message = "hello world";
 
         byte[] byteArray = creator.create(byteSrc, cType, bUserId, message, secretKey);
 
