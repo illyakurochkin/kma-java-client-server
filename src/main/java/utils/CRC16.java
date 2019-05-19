@@ -1,4 +1,4 @@
-package protocol;
+package utils;
 
 /******************************************************************************
  *  Compilation:  javac CRC16.java
