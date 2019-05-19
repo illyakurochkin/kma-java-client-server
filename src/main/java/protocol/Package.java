@@ -59,7 +59,7 @@ public class Package {
         this.packageCrc16B = builder.packageCrc16B;
     }
 
-    public PackageBuilder builder() {
+    public static PackageBuilder builder() {
         return new PackageBuilder();
     }
 
@@ -78,8 +78,7 @@ public class Package {
                 '}';
     }
 
-    private static class PackageBuilder {
-
+    public static class PackageBuilder {
 
         private byte bMagic;
         private byte bSrc;
