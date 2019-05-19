@@ -12,23 +12,23 @@ import static utils.CRC16.generateCrc16;
 
 class PackageParser {
 
-    public Package parse(byte[] packet, SecretKey secretKey) throws Exception {
+    public Package parse(byte[] byteArray, SecretKey secretKey) throws Exception {
         Cipher cipher = getInstance("AES");
         cipher.init(DECRYPT_MODE, secretKey);
 
-        byte bMagic = packet[0];
-        byte bSrc = packet[1];
-        long bPktId = wrap(copyOfRange(packet, 2, 10)).getLong();
-        int wLen = wrap(copyOfRange(packet, 10, 14)).getInt();
-        short packageCrc16H = wrap(copyOfRange(packet, 14, 16)).getShort();
-        int cType = wrap(copyOfRange(packet, 16, 20)).getInt();
-        int bUserId = wrap(copyOfRange(packet, 20, 24)).getInt();
-        byte[] decryptedBytes = cipher.doFinal(copyOfRange(packet, 24, packet.length - 2));
+        byte bMagic = byteArray[0];
+        byte bSrc = byteArray[1];
+        long bPktId = wrap(copyOfRange(byteArray, 2, 10)).getLong();
+        int wLen = wrap(copyOfRange(byteArray, 10, 14)).getInt();
+        short packageCrc16H = wrap(copyOfRange(byteArray, 14, 16)).getShort();
+        int cType = wrap(copyOfRange(byteArray, 16, 20)).getInt();
+        int bUserId = wrap(copyOfRange(byteArray, 20, 24)).getInt();
+        byte[] decryptedBytes = cipher.doFinal(copyOfRange(byteArray, 24, byteArray.length - 2));
         String decryptedMessage = new String(decryptedBytes);
-        short packageCrc16B = wrap(copyOfRange(packet, packet.length - 2, packet.length)).getShort();
+        short packageCrc16B = wrap(copyOfRange(byteArray, byteArray.length - 2, byteArray.length)).getShort();
 
-        short headerCrc = (short) generateCrc16(copyOfRange(packet, 0, 14));
-        short bodyCrc = (short) generateCrc16(copyOfRange(packet, 0, packet.length - 2));
+        short headerCrc = (short) generateCrc16(copyOfRange(byteArray, 0, 14));
+        short bodyCrc = (short) generateCrc16(copyOfRange(byteArray, 0, byteArray.length - 2));
 
         if (headerCrc != packageCrc16H) {
             throw new RuntimeException("Header CRC16 ("
