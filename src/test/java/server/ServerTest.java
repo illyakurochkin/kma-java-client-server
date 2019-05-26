@@ -24,9 +24,8 @@ public class ServerTest {
         System.setOut(new PrintStream(outContent));
     }
 
-    @Test(timeout = 0)
+    @Test
     public void shouldSendMessageAndReceiveOK() throws InterruptedException {
-
         new FakeReceiver(processor, 10);
         String expectedAnswer = range(0, 10).mapToObj(i -> "OK").collect(joining());
         sleep(2000);
