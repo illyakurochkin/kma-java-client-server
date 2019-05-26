@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.Assert.assertEquals;
 
 public class ProtocolTest {
+
     private static PackageCreator creator = new PackageCreator();
     private static PackageParser parser = new PackageParser();
 
@@ -24,18 +25,28 @@ public class ProtocolTest {
 
     @Test
     public void shouldCreateAndParsePackage() throws Exception {
-        byte byteSrc = 1;
-        int cType = 0;
-        int bUserId = 1;
+        byte src = 1;
+        int type = 0;
+        int userId = 1;
         String message = "hello world";
 
-        byte[] byteArray = creator.create(byteSrc, cType, bUserId, message, secretKey);
+        System.out.println("--- EXPECTED ---");
+        System.out.println("src - " + src);
+        System.out.println("type - " + type);
+        System.out.println("userId - " + userId);
+        System.out.println("message - " + message);
+        System.out.println();
+
+        byte[] byteArray = creator.create(src, type, userId, message, secretKey);
 
         Package packageInstance = parser.parse(byteArray, secretKey);
 
-        assertEquals(byteSrc, packageInstance.getbSrc());
-        assertEquals(cType, packageInstance.getcType());
-        assertEquals(bUserId, packageInstance.getbUserId());
+        System.out.println("--- ACTUAL ---");
+        System.out.println(packageInstance);
+
+        assertEquals(src, packageInstance.getbSrc());
+        assertEquals(type, packageInstance.getcType());
+        assertEquals(userId, packageInstance.getbUserId());
         assertEquals(message, packageInstance.getMessage());
     }
 }
