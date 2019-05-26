@@ -15,7 +15,7 @@ import static utils.CRC16.generateCrc16;
 public class PackageCreator {
     private static long counter = 1;
 
-    public byte[] create(byte bSrc, int cType, int bUserId, String message, SecretKey secretKey) {
+    public synchronized byte[] create(byte bSrc, int cType, int bUserId, String message, SecretKey secretKey) {
         try {
             Cipher cipher = getInstance("AES");
             cipher.init(ENCRYPT_MODE, secretKey);

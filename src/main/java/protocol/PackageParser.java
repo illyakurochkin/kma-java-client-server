@@ -12,7 +12,7 @@ import static utils.CRC16.generateCrc16;
 
 public class PackageParser {
 
-    public Package parse(byte[] byteArray, SecretKey secretKey) {
+    public synchronized Package parse(byte[] byteArray, SecretKey secretKey) {
         try {
             Cipher cipher = getInstance("AES");
             cipher.init(DECRYPT_MODE, secretKey);
